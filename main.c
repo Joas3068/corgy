@@ -2,8 +2,7 @@
 #include <msp430G2553.h>
 #define ON 10000
 
-//   int i = 0;
-//   char buff[2] = {'L','e','\0'};
+
 
 int main(void)
 
