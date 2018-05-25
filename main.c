@@ -8,9 +8,8 @@ int main(void)
 
 {
 
-        WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
-  // int i = 0;
-  // char buff[2] = {'L','e','\0'};
+  WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
+
 
   if (CALBC1_1MHZ==0xFF)                    // If calibration constant erased
 
