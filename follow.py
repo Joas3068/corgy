@@ -6,7 +6,8 @@ import time
 
 
 face = cv2.CascadeClassifier('/home/odroid/Desktop/bullseye_Stage0-15.xml')
-cap = cv2.VideoCapture(0)
+#cap = cv2.VideoCapture(0)
+cap = WebcamVideoStream(src=0).start()
 cx = 0
 
 wpi.wiringPiSetup()  #set up 
@@ -58,7 +59,9 @@ def runImage():   #this function follows a user for a set amount of time
     wpi.serialPuts(serial, "D")
     time.sleep(0.1)
     flag = 0
+    f_count = 1
     while z != 2000:
+          img = vs.read()
         
           a = 0
           b=0
@@ -94,10 +97,12 @@ def runImage():   #this function follows a user for a set amount of time
           else:
               flag = 0
               
-              
+          f_count += 1
+
           cv2.imshow('Cam',img)  #comment out during operation
           if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+            
     wpi.serialPuts(serial, "D")   #send default value to UART
     time.sleep(0.1)                 
     wpi.digitalWrite(0,0)       #turn off LED
