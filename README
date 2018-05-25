@@ -2,7 +2,7 @@ Code for a senior assistive robot using computer vision & voice commands to inte
 
 main.c: Microcoontroller code. Responsible for sending motor commands based on UART data received from the ODROID
 
-follow.py: When activated by a voice command it follows user for a set amount of time
+follow.py: When activated by a voice command it follows a unique object for a set amount of time.
 
 
 
