@@ -23,19 +23,19 @@ def moveCenter(x):
     if x<250:
          print("Left")
          wpi.serialPuts(serial, "2")  #Sends TX commands
-         time.sleep(0.1)
+         time.sleep(0.01)
          return 0
     elif x>375:
          print("Right")
          wpi.serialPuts(serial, "1")
-         time.sleep(0.1)
+         time.sleep(0.01)
          return 0
          
     else:
         print("MID")
         cx=0
         wpi.serialPuts(serial, "D")
-        time.sleep(0.1)
+        time.sleep(0.01)
          
         return 1
     
@@ -43,11 +43,11 @@ def moveForward(P):
     if P<700:
         print("FORWARD")
         wpi.serialPuts(serial, "3")
-        time.sleep(0.1)
+        time.sleep(0.01)
         return 0
     else:
         wpi.serialPuts(serial, "D")
-        time.sleep(0.1) 
+        time.sleep(0.01) 
         print("reached", P)
         return 1
         
@@ -57,7 +57,7 @@ def runImage():   #this function follows a user for a set amount of time
     z=0
     wpi.serialPuts(serial, "D")
     wpi.serialPuts(serial, "D")
-    time.sleep(0.1)
+    time.sleep(0.01)
     flag = 0
     f_count = 1
     while z != 2000:
@@ -93,7 +93,7 @@ def runImage():   #this function follows a user for a set amount of time
               p_prev = p
           if flag == 0:
                   wpi.serialPuts(serial, "D")
-                  time.sleep(0.1)
+                  time.sleep(0.01)
           else:
               flag = 0
               
@@ -102,9 +102,9 @@ def runImage():   #this function follows a user for a set amount of time
           cv2.imshow('Cam',img)  #comment out during operation
           if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-            
+
     wpi.serialPuts(serial, "D")   #send default value to UART
-    time.sleep(0.1)                 
+    time.sleep(0.01)                 
     wpi.digitalWrite(0,0)       #turn off LED
     cap.release()               #destroy windows
     cv2.destroyAllWindows()
