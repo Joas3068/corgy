@@ -1,5 +1,11 @@
-Code for a senior assistive robot using computer vision to track a user.
-Microcontroller processes UART commands from ODROID....ETC
+Code for a senior assistive robot using computer vision & voice commands to interact with a user.
+
+main.c: Microcoontroller code. Responsible for sending motor commands based on UART data received from the ODROID
+
+follow.py: When activated by a voice command it follows user for a set amount of time
+
+
+
 
 
 
