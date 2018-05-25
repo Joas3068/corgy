@@ -31,3 +31,6 @@ class FPS:
 	def fps(self):
 		# compute the (approximate) frames per second
 		return self._numFrames / self.elapsed()
+
+#Sourced from
+#https://www.pyimagesearch.com/2015/12/21/increasing-webcam-fps-with-python-and-opencv/
