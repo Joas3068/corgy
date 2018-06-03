@@ -30,19 +30,10 @@ while(1)
     {
          case '1': //Forward
 
-             //P2SEL |= BIT1;
-             P2DIR |= BIT1;
-
-             //P2SEL |= BIT2;
+             P2DIR |= BIT1; //Toggle PWM Signals
              P2DIR |= BIT2;
-
-             //P2SEL |= BIT4;
              P2DIR |= BIT4;
-
-             //P2SEL |= BIT5;
              P2DIR |= BIT5;
-
-
 
              TA1CCR0 = FULL; //period
 
@@ -50,28 +41,16 @@ while(1)
              TA1CCR2 = HIGH;
 
              P1OUT |=BIT0;
-             P1OUT |= BIT6;
-
-
-
+             P1OUT &= ~BIT6; //direction control
 
              break;
 
-         case '2': //Left
+         case '2': //Right
 
-             //P2SEL &= ~BIT1;
-             P2DIR &= ~BIT1;
-
-             //P2SEL |= BIT2;
+             P2DIR &= ~BIT1; //PWM Toggle
              P2DIR |= BIT2;
-
-//             P2SEL &= ~BIT4;
              P2DIR &= ~BIT4;
-
-//             P2SEL |= BIT5;
              P2DIR |= BIT5;
-
-
 
              TA1CCR0 = FULL; //period
 
@@ -79,24 +58,15 @@ while(1)
              TA1CCR2 = HIGH;
 
              P1OUT |= BIT0;
-             P1OUT |= BIT6;
+             P1OUT &= ~BIT6;
 
               break;
          case '3': //Left
 
-//             P2SEL |= BIT1;
              P2DIR |= BIT1;
-
-//             P2SEL &= ~BIT2;
              P2DIR &= ~BIT2;
-
-//             P2SEL |= BIT4;
              P2DIR |= BIT4;
-
-//             P2SEL &= ~BIT5;
              P2DIR &= ~BIT5;
-
-
 
              TA1CCR0 = FULL; //period
 
@@ -104,43 +74,36 @@ while(1)
              TA1CCR2 = HIGH;
 
              P1OUT |= BIT0;
-             P1OUT |= BIT6;
+             P1OUT &= ~BIT6;
+
 
               break;
          case '4':  //BACKWARD
-             2
+
              break;
 
          default:  //default turns all pins OFF which means setting them high
 
-            // P2SEL &= ~BIT1;
              P2DIR &= ~BIT1;
-
-//             P2SEL &= ~BIT2;
              P2DIR &= ~BIT2;
-             
-//             P2SEL &= ~BIT4; //OFF and NOT HIGH
              P2DIR &= ~BIT4;
-
-//             P2SEL &= ~BIT5; //OFF and NOT HIGH
              P2DIR &= ~BIT5;
 
-             TA1CCR0 = 0;
-             TA1CCR1 = 0;
-             TA1CCR2 = 0;
+//             TA1CCR0 = 0;
+//             TA1CCR1 = 0;
+//             TA1CCR2 = 0;
 
-             P1OUT &= ~BIT6;
-             P1OUT &= ~BIT0;
+             P1OUT |= BIT6;  //Both Directions On Stops Motors
+             P1OUT |= BIT0;
              break;
 }
-  __bis_SR_register(GIE);       // Enter LPM0, interrupts enabled
+  __bis_SR_register(GIE);      
 
 }
 
 }
 
 
-//  Echo back RXed character, cFULLfirm TX buffer is ready first
 
 #pragma vector=USCIAB0RX_VECTOR
 
@@ -148,12 +111,10 @@ __interrupt void USCI0RX_ISR(void)
 
 {
 
-  while (!(IFG2&UCA0TXIFG));                // USCI_A0 TX buffer ready?
-  {
-  UCA0TXBUF = UCA0RXBUF;                    // TX -> RXed character
-
-
-  }
+	while (!(IFG2&UCA0TXIFG));              
+  	{	
+		UCA0TXBUF = UCA0RXBUF;                    
+  	}
 }
 
 void pinInit()
@@ -161,9 +122,6 @@ void pinInit()
     P1DIR |= BIT0;
     P1OUT |= BIT0;
     P1DIR |= BIT6;
-
-    //P2DIR |= BIT2;  //GPIO
-    //P2DIR |= BIT5;  //GPIO
 
 
     P2DIR &= ~BIT1;  //PWM 1 DirectiFULL
